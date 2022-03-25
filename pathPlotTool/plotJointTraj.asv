@@ -1,0 +1,16 @@
+% 读取关节角度，进行绘图
+function plotJoint45Traj(path)
+    data=csvread(path);
+    data(:,4:6) = data(:,4:6)*pi/180;
+
+    % 读取第1，2，3列，
+    x = data(:,1);
+    y = data(:,2);
+    z = data(:,3);
+    
+    % 画图
+    figure;
+    hold on
+    plot3(x,y,z,'LineWidth',1.0);
+    plot3(x2,y2,z2,'LineWidth',1.0);
+end

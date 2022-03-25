@@ -9,5 +9,4 @@ function T=poseToMatrix(x)
         -sin(beta) cos(beta)*sin(gama) cos(beta)*cos(gama)];
     
     T=[R x(1:3)';    0 0 0 1];
-
  end

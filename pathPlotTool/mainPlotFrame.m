@@ -1,25 +1,81 @@
+close all;
 % è¯»å–æ–‡æœ¬æ–‡ä»¶
-data=csvread('scanDataModify.csv');
+data=csvread('singularityPath1.csv');
 data(:,4:6) = data(:,4:6)*pi/180;
 
-% è¯»å–ç¬¬1ï¼Œ2ï¼Œ3åˆ—ï¼Œ
+% è¯»å–ç¬?1ï¼?2ï¼?3åˆ—ï¼Œ
 x = data(:,1);
 y = data(:,2);
 z = data(:,3);
 
-for i = 1:5:size(data,1)
-   T = poseToMatrix(data(i,:));
-   plotframe(T,15);
-end
-axis equal % ç­‰è½´ç»˜åˆ¶
-grid on % ç”»å›¾
+data2=csvread('CartisienTrajOutput.csv');
+data2(:,4:6) = data2(:,4:6)*pi/180;
 
-rotate3d on % å…è®¸3Dæ—‹è½¬
+% è¯»å–ç¬?1ï¼?2ï¼?3åˆ—ï¼Œ
+x2 = data2(:,1);
+y2 = data2(:,2);
+z2 = data2(:,3);
 
 figure(2)
 hold on
 plot3(x,y,z,'LineWidth',1.0);
+plot3(x2,y2,z2,'LineWidth',1.0);
+legend('ĞŞÕıÇ°¹ì¼£','ĞŞÕıºó¹ì¼£');
+title('»úÆ÷ÈËĞŞÕıÇ°ºóÔ­µã¹ì¼£±È½Ï');
 grid on
 axis equal
 rotate3d on
 
+figure;
+for i = 1:1:size(data2,1)
+   T = poseToMatrix(data2(i,:));
+   plotframe(T,15);
+end
+axis equal % ç­‰è½´ç»˜åˆ¶
+grid on % ç”»å›¾
+rotate3d on % å…è®¸3Dæ—‹è½¬
+
+plotJoint456Traj('outPut.csv');
+
+plotJoint456Traj('jointOutput.csv');
+plotErr('Err.csv');
+[vel_orig, angle_orig, Acc_vel_orig, Acc_rot_orig] = plotCartisenVel('scanDataModify.csv');
+[vel_mod, angle_mod, Acc_vel_mod, Acc_rot_mod] =plotCartisenVel('CartisienTrajOutput.csv');
+% 
+figure;
+hold on
+plot(vel_orig,'LineWidth',1.0);
+plot(vel_mod,'LineWidth',1.0);
+legend('ĞŞÕıÇ°¹ì¼£','ĞŞÕıºó¹ì¼£');
+title('µÑ¿¨¶û¿Õ¼äÏßËÙ¶È¸ú×ÙÇúÏßÍ¼');
+grid on
+
+figure;
+hold on
+plot(angle_orig,'LineWidth',1.0);
+plot(angle_mod,'LineWidth',1.0);
+legend('ĞŞÕıÇ°¹ì¼£','ĞŞÕıºó¹ì¼£');
+title('µÑ¿¨¶û¿Õ¼ä½ÇËÙ¶È¸ú×ÙÇúÏßÍ¼');
+grid on
+
+% 
+figure;
+hold on
+plot(Acc_vel_orig,'LineWidth',1.0);
+plot(Acc_vel_mod,'LineWidth',1.0);
+legend('ĞŞÕıÇ°¹ì¼£','ĞŞÕıºó¹ì¼£');
+title('µÑ¿¨¶û¿Õ¼äÏß¼ÓËÙ¶È¸ú×ÙÇúÏßÍ¼');
+grid on
+
+% 
+figure;
+hold on
+plot(Acc_rot_orig,'LineWidth',1.0);
+plot(Acc_rot_mod,'LineWidth',1.0);
+legend('ĞŞÕıÇ°¹ì¼£','ĞŞÕıºó¹ì¼£');
+title('µÑ¿¨¶û¿Õ¼ä½Ç¼ÓËÙ¶È¸ú×ÙÇúÏßÍ¼');
+grid on
+
+plotParam('Param.csv');
+% compareJoint456('jointOutput1.csv','jointOutput.csv');
+% compareTwistErr( 'CartisienTrajOutput1.csv', 'CartisienTrajOutput.csv', 'scanDataModify.csv')
