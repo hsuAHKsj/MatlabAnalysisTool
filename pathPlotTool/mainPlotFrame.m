@@ -1,6 +1,6 @@
 close all;
 % 璇诲彇鏂囨湰鏂囦欢
-data=csvread('singularityPath1.csv');
+data=csvread('singularityPath2.csv');
 data(:,4:6) = data(:,4:6)*pi/180;
 
 % 璇诲彇绗?1锛?2锛?3鍒楋紝
@@ -35,11 +35,15 @@ axis equal % 绛夎酱缁樺埗
 grid on % 鐢诲浘
 rotate3d on % 鍏佽3D鏃嬭浆
 
-plotJoint456Traj('outPut.csv');
+% % 原模块ik值
+% plotJoint456Traj('OriginIK.csv');
+% % 修正后ik值
+% plotJoint456Traj('jointOutput.csv');
 
-plotJoint456Traj('jointOutput.csv');
+plotJoint123456Traj('OriginIK.csv');
+
 plotErr('Err.csv');
-[vel_orig, angle_orig, Acc_vel_orig, Acc_rot_orig] = plotCartisenVel('scanDataModify.csv');
+[vel_orig, angle_orig, Acc_vel_orig, Acc_rot_orig] = plotCartisenVel('singularityPath2.csv');
 [vel_mod, angle_mod, Acc_vel_mod, Acc_rot_mod] =plotCartisenVel('CartisienTrajOutput.csv');
 % 
 figure;

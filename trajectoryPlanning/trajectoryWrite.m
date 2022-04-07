@@ -11,6 +11,6 @@ function trajectoryWrite(traj, fileName)
     end
 
      % 写 csv 的路径
-    csvwrite(fileName, out_vec_v);
+    dlmwrite(fileName, out_vec_v, 'precision', 20);
 end
 
